@@ -795,8 +795,8 @@ and increase connectivity with web servers.</p>
 <h3 id="certificate-pinning-kt-java">Certificate Pinning (<a href="https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/kt/CertificatePinning.kt">.kt</a>, <a href="https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/CertificatePinning.java">.java</a>)<a class="headerlink" href="#certificate-pinning-kt-java" title="Permanent link">&para;</a></h3>
 <p>By default, OkHttp trusts the certificate authorities of the host platform. This strategy maximizes connectivity, but it is subject to certificate authority attacks such as the <a href="http://www.computerworld.com/article/2510951/cybercrime-hacking/hackers-spied-on-300-000-iranians-using-fake-google-certificate.html">2011 DigiNotar attack</a>. It also assumes your HTTPS servers’ certificates are signed by a certificate authority.</p>
 <p>Use <a href="http://square.github.io/okhttp/4.x/okhttp/okhttp3/-certificate-pinner/">CertificatePinner</a> to restrict which certificates and certificate authorities are trusted. Certificate pinning increases security, but limits your server team’s abilities to update their TLS certificates. <strong>Do not use certificate pinning without the blessing of your server’s TLS administrator!</strong></p>
-<div class="tabbed-set" data-tabs="1:2">
-<input name="__tabbed_1" type="radio" id="__tabbed_1_1" checked="checked" /><label for="__tabbed_1_1">Kotlin</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code>  <span class="k">private</span> <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">OkHttpClient</span><span class="p">.</span><span class="n">Builder</span><span class="p">()</span>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Kotlin</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>  <span class="k">private</span> <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">OkHttpClient</span><span class="p">.</span><span class="n">Builder</span><span class="p">()</span>
       <span class="p">.</span><span class="n">certificatePinner</span><span class="p">(</span>
           <span class="n">CertificatePinner</span><span class="p">.</span><span class="n">Builder</span><span class="p">()</span>
               <span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;publicobject.com&quot;</span><span class="p">,</span> <span class="s">&quot;sha256/afwiKY3RxoMmLkuRW1l7QsPZTJPwDS2pdDROQjXw8ig=&quot;</span><span class="p">)</span>
@@ -816,8 +816,11 @@ and increase connectivity with web servers.</p>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
-</code></pre></div></div>
-<input name="__tabbed_1" type="radio" id="__tabbed_1_2" /><label for="__tabbed_1_2">Java</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code>  <span class="kd">private</span> <span class="kd">final</span> <span class="n">OkHttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OkHttpClient</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Java</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>  <span class="kd">private</span> <span class="kd">final</span> <span class="n">OkHttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OkHttpClient</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span>
       <span class="p">.</span><span class="na">certificatePinner</span><span class="p">(</span>
           <span class="k">new</span> <span class="n">CertificatePinner</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span>
               <span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&quot;publicobject.com&quot;</span><span class="p">,</span> <span class="s">&quot;sha256/afwiKY3RxoMmLkuRW1l7QsPZTJPwDS2pdDROQjXw8ig=&quot;</span><span class="p">)</span>
@@ -837,12 +840,14 @@ and increase connectivity with web servers.</p>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
-</code></pre></div></div>
+</code></pre></div>
+
+</div>
 </div>
 <h3 id="customizing-trusted-certificates-kt-java">Customizing Trusted Certificates (<a href="https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/kt/CustomTrust.kt">.kt</a>, <a href="https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/CustomTrust.java">.java</a>)<a class="headerlink" href="#customizing-trusted-certificates-kt-java" title="Permanent link">&para;</a></h3>
 <p>The full code sample shows how to replace the host platform’s certificate authorities with your own set. As above, <strong>do not use custom certificates without the blessing of your server’s TLS administrator!</strong></p>
-<div class="tabbed-set" data-tabs="2:2">
-<input name="__tabbed_2" type="radio" id="__tabbed_2_1" checked="checked" /><label for="__tabbed_2_1">Kotlin</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code>  <span class="k">private</span> <span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">OkHttpClient</span>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Kotlin</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>  <span class="k">private</span> <span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">OkHttpClient</span>
 
   <span class="n">init</span> <span class="p">{</span>
     <span class="k">val</span> <span class="py">trustManager</span> <span class="p">=</span> <span class="n">trustManagerForCertificates</span><span class="p">(</span><span class="n">trustedCertificatesInputStream</span><span class="p">())</span>
@@ -883,8 +888,11 @@ and increase connectivity with web servers.</p>
   <span class="k">private</span> <span class="k">fun</span> <span class="nf">trustManagerForCertificates</span><span class="p">(</span><span class="n">inputStream</span><span class="p">:</span> <span class="n">InputStream</span><span class="p">):</span> <span class="n">X509TrustManager</span> <span class="p">{</span>
     <span class="p">...</span> <span class="c1">// Full source omitted. See sample.</span>
   <span class="p">}</span>
-</code></pre></div></div>
-<input name="__tabbed_2" type="radio" id="__tabbed_2_2" /><label for="__tabbed_2_2">Java</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code>  <span class="kd">private</span> <span class="kd">final</span> <span class="n">OkHttpClient</span> <span class="n">client</span><span class="p">;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Java</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>  <span class="kd">private</span> <span class="kd">final</span> <span class="n">OkHttpClient</span> <span class="n">client</span><span class="p">;</span>
 
   <span class="kd">public</span> <span class="nf">CustomTrust</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">X509TrustManager</span> <span class="n">trustManager</span><span class="p">;</span>
@@ -919,7 +927,9 @@ and increase connectivity with web servers.</p>
   <span class="kd">public</span> <span class="n">SSLContext</span> <span class="nf">sslContextForTrustedCertificates</span><span class="p">(</span><span class="n">InputStream</span> <span class="n">in</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">...</span> <span class="c1">// Full source omitted. See sample.</span>
   <span class="p">}</span>
-</code></pre></div></div>
+</code></pre></div>
+
+</div>
 </div>
                 
               
